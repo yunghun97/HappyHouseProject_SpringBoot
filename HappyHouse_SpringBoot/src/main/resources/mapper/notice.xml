@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.ssafy.happyhouse.model.mapper.NoticeMapper">
+
+	<select id="selectNotice" parameterType="noticeDto" resultType="noticeDto">
+		select no, title,content,writer, date_format(writeTime, '%Y.%m.%d') as writeTime
+		from notice
+	</select>
+	
+	<select id="getNotice" parameterType="int" resultType="noticeDto">
+		select *
+		from notice
+		where no = #{no}
+	</select>
+	
+	<insert id="registNotice" parameterType="noticeDto">
+		insert into notice (title, content, writer, writeTime)
+		values (#{title}, #{content}, #{writer}, now())
+	</insert>
+	
+	<delete id="deleteNotice" parameterType="int">
+		delete from notice
+		where no = #{no}
+	</delete>
+</mapper>
